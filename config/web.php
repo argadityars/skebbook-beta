@@ -1,7 +1,7 @@
 <?php
 
 $params = require(__DIR__ . '/params.php');
-$user = require(__DIR__ . '/secrets.php');
+$secret = require(__DIR__ . '/secrets.php');
 
 $config = [
     'id' => 'basic',
@@ -26,17 +26,33 @@ $config = [
                 ],
             ],
         ],
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'google' => [
+                    'class' => 'dektrium\user\clients\Google',
+                    'clientId' => $secret['google_client_id'],
+                    'clientSecret' => $secret['google_secret'],
+                ],
+                'facebook' => [
+                    'class' => 'yii\authclient\clients\Facebook',
+                    'clientId' => $secret['facebook_client_id'],
+                    'clientSecret' => $secret['facebook_secret'],
+                ],
+            // etc.
+            ]
+        ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             'viewPath' => '@app/mailer',
             'useFileTransport' => false,
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
-                'host' => $user['host'],
-                'username' => $user['username'],
-                'password' => $user['password'],
-                'port' => $user['port'],
-                'encryption' => $user['encryption'],
+                'host' => $secret['host'],
+                'username' => $secret['username'],
+                'password' => $secret['password'],
+                'port' => $secret['port'],
+                'encryption' => $secret['encryption'],
             ],
         ],
         'log' => [
@@ -60,10 +76,15 @@ $config = [
     'modules' => [
         'user' => [
             'class' => 'dektrium\user\Module',
-            'enableUnconfirmedLogin' => true,
+            'enableUnconfirmedLogin' => false,
             'confirmWithin' => 21600,
             'cost' => 12,
-            'admins' => ['admin']
+            'admins' => ['admin'],
+            'modelMap' => [
+                //'User' => 'app\models\User',
+                'Profile' => 'app\models\Profile',
+                'RegistrationForm' => 'app\models\RegistrationForm',
+            ],
         ],
     ]
 ];

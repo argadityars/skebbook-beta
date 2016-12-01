@@ -30,6 +30,9 @@ $this->params['breadcrumbs'][] = 'Login';
         <div class="panel panel-default">
             <div class="panel-body">
                 <h3 class="text-center no-margin-top margin-bottom">Login</h3>
+                <?= Html::a('Google', ['/user/security/auth?authclient=google'], ['class' => 'btn btn-danger btn-block']) ?>
+                <?= Html::a('Facebook', ['/user/security/auth?authclient=facebook'], ['class' => 'btn btn-primary btn-block margin-btm']) ?>
+                <p class="text-center margin-top margin-bottom">or</p>
                 <?php $form = ActiveForm::begin([
                     'id'                     => 'login-form',
                     'enableAjaxValidation'   => true,
@@ -80,8 +83,5 @@ $this->params['breadcrumbs'][] = 'Login';
                 <?= Html::a(Yii::t('user', 'Don\'t have an account? Sign up!'), ['/user/registration/register']) ?>
             </p>
         <?php endif ?>
-        <?= Connect::widget([
-            'baseAuthUrl' => ['/user/security/auth'],
-        ]) ?>
     </div>
 </div>
