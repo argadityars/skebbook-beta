@@ -19,7 +19,7 @@ use dektrium\user\models\User as BaseUser;
  * @property string $avatar 
  * @property string $banner 
  *
- * @author Argaditya <argadityarss@gmail.com>
+ * @author Argaditya <dev.argadityars@gmail.com>
  */
 class User extends BaseUser
 {

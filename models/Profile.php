@@ -7,6 +7,7 @@
 namespace app\models;
 
 use dektrium\user\models\Profile as BaseProfile;
+use Yii;
 
 /**
  * This is overriding the model class for table "profile".
@@ -14,7 +15,7 @@ use dektrium\user\models\Profile as BaseProfile;
  * @property string $avatar 
  * @property string $banner 
  *
- * @author Argaditya <argadityarss@gmail.com>
+ * @author Argaditya <dev.argadityars@gmail.com>
  */
 
 class Profile extends BaseProfile
@@ -33,7 +34,11 @@ class Profile extends BaseProfile
 	 */
 	public function getAvatar()
 	{
-		return 'uploads/image/avatar/' . $this->avatar ;
+        $avatar = $this->avatar;
+        if ($this->avatar == null) {
+            $avatar = 'default.png';
+        }
+		return '/uploads/image/avatar/' . $avatar ;
 	}
 
 	/**
@@ -45,9 +50,8 @@ class Profile extends BaseProfile
         $rules['sexLength'] = ['sex', 'string', 'max' => 10];
         $rules['sexIn'] = ['sex', 'in', 'range' => ['L', 'P']];
         $rules['dateLength'] = ['date', 'integer', 'min' => 1, 'max' => 31];
-        $rules['monthLength'] = ['month', 'string', 'max' => 10];
-        $rules['monthIn'] = ['month', 'in', 'range' => ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']];
-        $rules['yearLength'] = ['year', 'integer', 'min' => 4, 'max' => 5];
+        $rules['monthLength'] = ['month', 'integer', 'min' => 1, 'max' => 12];
+        $rules['yearLength'] = ['year', 'integer', 'min' => 1940];
         $rules['avatarLength'] = ['avatar', 'string', 'max' => 255];
         $rules['bannerLength'] = ['banner', 'string', 'max' => 255];
         $rules['avatarFiles']   = ['avatarImage', 'image', 'extensions' => 'png, jpg, jpeg'];
@@ -63,9 +67,9 @@ class Profile extends BaseProfile
     {
     	return [
             'sex'   => \Yii::t('user', 'Jenis Kelamin'),
-            'date'  => \Yii::t('user', 'Tanggal'),
-            'month' => \Yii::t('user', 'Bulan'),
-            'year'  => \Yii::t('user', 'Tahun'),
+            'date'  => \Yii::t('user', 'Tanggal Lahir'),
+            'month' => \Yii::t('user', 'Bulan Lahir'),
+            'year'  => \Yii::t('user', 'Tahun Lahir'),
     		'avatar'=> \Yii::t('user', 'Foto Profil'),
             'banner'     => \Yii::t('user', 'Foto Header'),
     		'avatarImage'=> \Yii::t('user', 'Foto Profil'),
@@ -80,7 +84,7 @@ class Profile extends BaseProfile
     {
     	$avatar = $this->avatarImage;
     	if ($this->validate()) {
-            $avatar->saveAs('uploads/image/avatar/' . date('Ydm') . md5($avatar->baseName) . '.' . $avatar->extension);
+            $avatar->saveAs('uploads/image/avatar/' . date('Ydm') . md5(Yii::$app->user->identity->getId()) . '.' . $avatar->extension);
             return true;
         } else {
             return false;

@@ -20,6 +20,38 @@ use kartik\widgets\ActiveForm;
 $user = Yii::$app->user->identity;
 $this->title = Yii::t('user', 'Profile settings');
 $this->params['breadcrumbs'][] = $this->title;
+
+/**
+ * Date
+ */
+function getMonthsArray()
+{
+    for($monthNum = 1; $monthNum <= 12; $monthNum++){
+        $months[$monthNum] = date('F', mktime(0, 0, 0, $monthNum, 1));
+    }
+
+    return array(0 => 'Pilih Bulan') + $months;
+}
+
+function getDaysArray()
+{
+    for($dayNum = 1; $dayNum <= 31; $dayNum++){
+        $days[$dayNum] = $dayNum;
+    }
+
+    return array(0 => 'Pilih Hari') + $days;
+}
+
+function getYearsArray()
+{
+    $thisYear = date('Y', time());
+
+    for($yearNum = $thisYear-76; $yearNum <= $thisYear-14; $yearNum++){
+        $years[$yearNum] = $yearNum;
+    }
+
+    return array(0 => 'Pilih Tahun') + $years;
+}
 ?>
 
 <?= $this->render('/_alert', ['module' => Yii::$app->getModule('user')]) ?>
@@ -41,38 +73,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     'validateOnBlur'         => false,
                 ]); ?>
 
+                <?= $form->field($model, 'avatarImage')->fileInput(['accept' => 'image/*']) ?>
+
                 <?= $form->field($model, 'name') ?>
 
                 <?= $form->field($model, 'sex')->radioList(['L' => 'Laki-laki', 'P' => 'Perempuan'], ['inline'=>true]) ?>
 
-                <?php
-                    $date = [];
-                    for ($i=1; $i < 32; $i++) { 
-                         $date[] = [$i => $i];
-                    }
-                    $month = [
-                        'Januari' => 'Januari',
-                        'Februari' => 'Februari',
-                        'Maret' => 'Maret',
-                        'April' => 'April',
-                        'Mei' => 'Mei',
-                        'Juni' => 'Juni',
-                        'Juli' => 'Juli',
-                        'Agustus' => 'Agustus',
-                        'September' => 'September',
-                        'Oktober' => 'Oktober',
-                        'November' => 'November',
-                        'Desember' => 'Desember'
-                    ];
-                    $year = [];
-                    for ($i=1941; $i < 2003; $i++) { 
-                         $year[] = [$i => $i];
-                     } 
-                ?>
                 <div class="row">
-                    <div class="col-md-4"><?= $form->field($model, 'date')->dropdownList($date) ?></div>
-                    <div class="col-md-4"><?= $form->field($model, 'month')->dropdownList($month) ?></div>
-                    <div class="col-md-4"><?= $form->field($model, 'year')->dropdownList($year) ?></div>
+                    <div class="col-md-4"><?= $form->field($model, 'date')->dropdownList(getDaysArray()) ?></div>
+                    <div class="col-md-4"><?= $form->field($model, 'month')->dropdownList(getMonthsArray()) ?></div>
+                    <div class="col-md-4"><?= $form->field($model, 'year')->dropdownList(getYearsArray()) ?></div>
                 </div>
 
                 <?= \yii\helpers\Html::submitButton(
@@ -83,10 +93,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php ActiveForm::end(); ?>
             </div>
         </div>
-        <?= Html::img($user->profile->getAvatarUrl(24), [
+        <?= Html::img($user->profile->getAvatar(), [
             'class' => 'img-circle',
             'alt'   => $user->username,
+            'width' => '24px'
         ]) ?>
         <?= $user->username ?>
     </div>
 </div>
+
+

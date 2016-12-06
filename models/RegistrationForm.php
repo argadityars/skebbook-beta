@@ -15,7 +15,7 @@ use dektrium\user\models\User;
  * @property string $name 
  * @property string $password_repeat 
  *
- * @author Argaditya <argadityarss@gmail.com>
+ * @author Argaditya <dev.argadityars@gmail.com>
  */
 class RegistrationForm extends BaseRegistrationForm
 {

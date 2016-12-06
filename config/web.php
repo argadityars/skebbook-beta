@@ -85,6 +85,9 @@ $config = [
                 'Profile' => 'app\models\Profile',
                 'RegistrationForm' => 'app\models\RegistrationForm',
             ],
+            'controllerMap' => [
+                'settings' => 'app\controllers\user\SettingsController',
+            ],
         ],
     ]
 ];
