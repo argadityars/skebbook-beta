@@ -21,7 +21,7 @@ $networksVisible = count(Yii::$app->authClientCollection->clients) > 0;
 
 <?= Menu::widget([
     'options' => [
-        'class' => 'nav nav-tabs',
+        'class' => 'nav nav-tabs margin-bottom',
     ],
     'items' => [
         [

@@ -108,4 +108,44 @@ class Profile extends BaseProfile
         return '/uploads/image/avatar/' . $avatar ;
     }
 
+    /**
+     * Get collection of month
+     * @return array 
+     */
+    public function getMonthsArray()
+    {
+        for($monthNum = 1; $monthNum <= 12; $monthNum++){
+            $months[$monthNum] = date('F', mktime(0, 0, 0, $monthNum, 1));
+        }
+
+        return array(0 => 'Pilih Bulan') + $months;
+    }
+
+    /**
+     * Get collection of days
+     * @return array 
+     */
+    public function getDaysArray()
+    {
+        for($dayNum = 1; $dayNum <= 31; $dayNum++){
+            $days[$dayNum] = $dayNum;
+        }
+
+        return array(0 => 'Pilih Hari') + $days;
+    }
+
+    /**
+     * Get collection of years
+     * @return array 
+     */
+    public function getYearsArray()
+    {
+        $thisYear = date('Y', time());
+
+        for($yearNum = $thisYear-76; $yearNum <= $thisYear-14; $yearNum++){
+            $years[$yearNum] = $yearNum;
+        }
+
+        return array(0 => 'Pilih Tahun') + $years;
+    }
 }
