@@ -79,6 +79,23 @@ class Profile extends BaseProfile
     }
 
     /**
+     * Process deletion of image
+     *
+     * @return boolean the status of deletion
+     */
+    public function deleteImage($avatarOld)
+    {
+        $URL = Yii::getAlias('@webroot'). '/uploads/image/avatar/' . $avatarOld;
+
+        // check if file exists on server
+        if (empty($URL) || !file_exists($URL)) {
+            return false;
+        }
+
+        return unlink($URL);
+    }
+
+    /**
      * Returns avatar url or null if avatar not set.
      * @param string|null $name 
      */

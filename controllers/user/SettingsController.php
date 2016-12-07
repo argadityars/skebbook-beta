@@ -16,6 +16,7 @@ class SettingsController extends BaseSettings
 	public function actionProfile()
 	{
 		$model = $this->finder->findProfileById(Yii::$app->user->identity->getId());
+		$oldAvatar = $model->avatar;
 		$this->performAjaxValidation($model);
 		$data = Yii::$app->request->post();
 
@@ -23,11 +24,15 @@ class SettingsController extends BaseSettings
 			$model->avatarImage = UploadedFile::getInstance($model, 'avatarImage');
 
 			if ($model->avatarImage) {
+				if($oldAvatar) {
+                    $model->deleteImage($oldAvatar);
+                }
 				$model->avatar = date('Ydm') . md5(Yii::$app->user->identity->getId()) . '.' . $model->avatarImage->extension;
+				$model->save();
 				$model->uploadAvatar();
+			} else {
+				$model->save();	
 			}
-			
-			$model->save();
 			
             Yii::$app->getSession()->setFlash('success', Yii::t('user', 'Profile updated successfully!'));
 

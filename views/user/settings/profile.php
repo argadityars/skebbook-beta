@@ -60,7 +60,6 @@ function getYearsArray()
 <div class="panel panel-default">
     <div class="panel-body">
         
-        
         <?php $form = ActiveForm::begin([
             'id' => 'profile-form',
             'enableAjaxValidation'   => true,
@@ -88,5 +87,4 @@ function getYearsArray()
         <?php ActiveForm::end(); ?>
     </div>
 </div>
-
 
