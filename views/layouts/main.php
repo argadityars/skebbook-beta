@@ -60,11 +60,15 @@ AppAsset::register($this);
     ?>
 
     <div class="container">
-        
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= $content ?>
+
+        <?php if(Yii::$app->user->isGuest): ?>
+            <?= $content ?>
+        <?php else: ?>
+        <div class="row">
+            <div class="col-md-3"><?= $this->render('_sidebar') ?></div>
+            <div class="col-md-9"><?= $content ?></div> 
+        </div>
+        <?php endif; ?>
 
     </div>
 </div>

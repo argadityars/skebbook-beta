@@ -29,19 +29,6 @@ class Profile extends BaseProfile
     public $bannerImage;
 
 	/**
-	 * Returns avatar url or null if avatar not set.
-	 * @param string|null $name 
-	 */
-	public function getAvatar()
-	{
-        $avatar = $this->avatar;
-        if ($this->avatar == null) {
-            $avatar = 'default.png';
-        }
-		return '/uploads/image/avatar/' . $avatar ;
-	}
-
-	/**
      * @inheritdoc
      */
     public function rules()
@@ -54,7 +41,7 @@ class Profile extends BaseProfile
         $rules['yearLength'] = ['year', 'integer', 'min' => 1940];
         $rules['avatarLength'] = ['avatar', 'string', 'max' => 255];
         $rules['bannerLength'] = ['banner', 'string', 'max' => 255];
-        $rules['avatarFiles']   = ['avatarImage', 'image', 'extensions' => 'png, jpg, jpeg'];
+        $rules['avatarFiles']   = ['avatarImage', 'image', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'];
         $rules['bannerFiles'] = ['bannerImage', 'image', 'extensions' => 'png, jpg, jpeg'];
 
         return $rules;
@@ -89,6 +76,19 @@ class Profile extends BaseProfile
         } else {
             return false;
         }
+    }
+
+    /**
+     * Returns avatar url or null if avatar not set.
+     * @param string|null $name 
+     */
+    public function getAvatar()
+    {
+        $avatar = $this->avatar;
+        if ($this->avatar == null) {
+            $avatar = 'default.png';
+        }
+        return '/uploads/image/avatar/' . $avatar ;
     }
 
 }

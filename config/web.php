@@ -81,7 +81,6 @@ $config = [
             'cost' => 12,
             'admins' => ['admin'],
             'modelMap' => [
-                //'User' => 'app\models\User',
                 'Profile' => 'app\models\Profile',
                 'RegistrationForm' => 'app\models\RegistrationForm',
             ],

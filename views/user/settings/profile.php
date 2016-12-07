@@ -56,49 +56,36 @@ function getYearsArray()
 
 <?= $this->render('/_alert', ['module' => Yii::$app->getModule('user')]) ?>
 
-<div class="row">
-    <div class="col-md-3">
+<?= $this->render('_menu') ?>
+<div class="panel panel-default">
+    <div class="panel-body">
         
-    </div>
-    <div class="col-md-9">
-        <?= $this->render('_menu') ?>
-        <div class="panel panel-default">
-            <div class="panel-body">
-                
-                
-                <?php $form = ActiveForm::begin([
-                    'id' => 'profile-form',
-                    'enableAjaxValidation'   => true,
-                    'enableClientValidation' => false,
-                    'validateOnBlur'         => false,
-                ]); ?>
+        
+        <?php $form = ActiveForm::begin([
+            'id' => 'profile-form',
+            'enableAjaxValidation'   => true,
+            'enableClientValidation' => false,
+            'validateOnBlur'         => false,
+        ]); ?>
 
-                <?= $form->field($model, 'avatarImage')->fileInput(['accept' => 'image/*']) ?>
+        <?= $form->field($model, 'avatarImage')->fileInput(['accept' => 'image/*']) ?>
 
-                <?= $form->field($model, 'name') ?>
+        <?= $form->field($model, 'name') ?>
 
-                <?= $form->field($model, 'sex')->radioList(['L' => 'Laki-laki', 'P' => 'Perempuan'], ['inline'=>true]) ?>
+        <?= $form->field($model, 'sex')->radioList(['L' => 'Laki-laki', 'P' => 'Perempuan'], ['inline'=>true]) ?>
 
-                <div class="row">
-                    <div class="col-md-4"><?= $form->field($model, 'date')->dropdownList(getDaysArray()) ?></div>
-                    <div class="col-md-4"><?= $form->field($model, 'month')->dropdownList(getMonthsArray()) ?></div>
-                    <div class="col-md-4"><?= $form->field($model, 'year')->dropdownList(getYearsArray()) ?></div>
-                </div>
-
-                <?= \yii\helpers\Html::submitButton(
-                    Yii::t('user', 'Save'),
-                    ['class' => 'btn btn-block btn-success']
-                ) ?>
-                    
-                <?php ActiveForm::end(); ?>
-            </div>
+        <div class="row">
+            <div class="col-md-4"><?= $form->field($model, 'date')->dropdownList(getDaysArray()) ?></div>
+            <div class="col-md-4"><?= $form->field($model, 'month')->dropdownList(getMonthsArray()) ?></div>
+            <div class="col-md-4"><?= $form->field($model, 'year')->dropdownList(getYearsArray()) ?></div>
         </div>
-        <?= Html::img($user->profile->getAvatar(), [
-            'class' => 'img-circle',
-            'alt'   => $user->username,
-            'width' => '24px'
-        ]) ?>
-        <?= $user->username ?>
+
+        <?= \yii\helpers\Html::submitButton(
+            Yii::t('user', 'Save'),
+            ['class' => 'btn btn-block btn-success']
+        ) ?>
+            
+        <?php ActiveForm::end(); ?>
     </div>
 </div>
 

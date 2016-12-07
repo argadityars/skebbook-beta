@@ -130,3 +130,7 @@ a.desc:after {
 .no-margin-bottom {
     margin-bottom: 0;
 }
+
+.block {
+    display: block;
+}
