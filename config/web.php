@@ -1,9 +1,11 @@
 <?php
 
 $params = require(__DIR__ . '/params.php');
+$secret = require(__DIR__ . '/secrets.php');
 
 $config = [
     'id' => 'basic',
+    'name' => 'Skebbook',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
@@ -14,19 +16,44 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        'user' => [
-            'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
-        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'view' => [
+            'theme' => [
+                'pathMap' => [
+                    '@dektrium/user/views' => '@app/views/user'
+                ],
+            ],
+        ],
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'google' => [
+                    'class' => 'dektrium\user\clients\Google',
+                    'clientId' => $secret['google_client_id'],
+                    'clientSecret' => $secret['google_secret'],
+                ],
+                'facebook' => [
+                    'class' => 'yii\authclient\clients\Facebook',
+                    'clientId' => $secret['facebook_client_id'],
+                    'clientSecret' => $secret['facebook_secret'],
+                ],
+            // etc.
+            ]
+        ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'viewPath' => '@app/mailer',
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => $secret['host'],
+                'username' => $secret['username'],
+                'password' => $secret['password'],
+                'port' => $secret['port'],
+                'encryption' => $secret['encryption'],
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -38,16 +65,30 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
     ],
     'params' => $params,
+    'modules' => [
+        'user' => [
+            'class' => 'dektrium\user\Module',
+            'enableUnconfirmedLogin' => false,
+            'confirmWithin' => 21600,
+            'cost' => 12,
+            'admins' => ['admin'],
+            'modelMap' => [
+                'Profile' => 'app\models\Profile',
+                'RegistrationForm' => 'app\models\RegistrationForm',
+            ],
+            'controllerMap' => [
+                'settings' => 'app\controllers\user\SettingsController',
+            ],
+        ],
+    ]
 ];
 
 if (YII_ENV_DEV) {

@@ -113,3 +113,24 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+/* Skebbook Custom */
+.margin-top {
+    margin-top: 20px;
+}
+
+.no-margin-top {
+    margin-top: 0;
+}
+
+.margin-bottom {
+    margin-bottom: 20px;
+}
+
+.no-margin-bottom {
+    margin-bottom: 0;
+}
+
+.block {
+    display: block;
+}
