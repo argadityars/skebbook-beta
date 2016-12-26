@@ -24,8 +24,8 @@ $navItems=[
     array_push($navItems,[
         'label' => Yii::$app->user->identity->username,
             'items' => [
-                ['label' => 'My Shop', 'url' => ['/shop']],
-                ['label' => 'Setting', 'url' => ['/user/settings']],
+                ['label' => 'Shop', 'url' => ['/shop']],
+                ['label' => 'Profile', 'url' => ['/user/settings']],
                 '<li class="divider"></li>',
                 ['label' => 'Logout', 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']]
             ]

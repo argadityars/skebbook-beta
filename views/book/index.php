@@ -18,17 +18,17 @@ $this->title = Yii::$app->name . ' - Shop';
 </section>
 
 <section id="main-content" class="container-fluid">
-	<div class="row">
+	<div class="row is-flex">
 		<div class="col-md-2" id="sidebar">
 			<?= $this->render('_filter', [
 				'category' => $category,
 			]) ?>
 		</div>
-		<div class="col-md-10" id="mainbar">
+		<div class="col-md-9" id="mainbar">
 			<?php if(!$model): ?>
 				<p class="text-center"><em>Not found</em></p>
 			<?php endif; ?>
-			<div class="row">
+			<div class="row margin-top">
 				<?php foreach($model as $book): ?>
 					<div class="col-md-3 margin-bottom">
 						<a href="<?= 'product/view/'. $book->slug ?>">

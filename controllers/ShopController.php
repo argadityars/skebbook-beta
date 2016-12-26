@@ -36,16 +36,22 @@ class ShopController extends Controller
         $this->layout = '2column';
 
     	$shop = Shop::find()->where(['user_id' => Yii::$app->user->identity->getId()])->one();
-        $product = Product::find()->where(['shop_id' => $shop->id, 'status' => 1]);
-        $pages = new Pagination(['totalCount' => $product->count()]);
-        $products = $product->offset($pages->offset)
-            ->limit($pages->limit)
-            ->all();
+        if ($shop) {
+            $product = Product::find()->where(['shop_id' => $shop->id, 'status' => 1]);
+            $pages = new Pagination(['totalCount' => $product->count()]);
+            $products = $product->offset($pages->offset)
+                ->limit($pages->limit)
+                ->all();
+
+            return $this->render('index', [
+                'model' => $shop,
+                'products' => $products,
+                'pages' => $pages,
+            ]);
+        }
         
         return $this->render('index', [
-            'model' => $shop,
-            'products' => $products,
-            'pages' => $pages,
+            'model' => $shop
         ]);
     }
 

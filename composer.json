@@ -23,7 +23,8 @@
         "yiisoft/yii2-authclient": "*",
         "kartik-v/yii2-money": "*",
         "2amigos/yii2-selectize-widget": "~1.0",
-        "yiisoft/yii2-elasticsearch": "^2.0"
+        "yiisoft/yii2-elasticsearch": "^2.0",
+        "yii2mod/yii2-sweet-alert": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

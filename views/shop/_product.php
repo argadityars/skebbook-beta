@@ -1,5 +1,6 @@
 <?php 
 
+use yii2mod\alert\Alert;
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
 
@@ -23,7 +24,7 @@ use yii\widgets\LinkPager;
 			    </td>
 			    <td style="vertical-align: middle;" class="text-right">
 			    	<?= Html::a('Edit Buku', ['product/update/'. $product->slug], ['class' => 'btn btn-info btn-sm']) ?>
-			    	<?= Html::a('<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>', ['product/delete/'. $product->slug], ['class' => 'btn btn-sm btn-danger']) ?>
+			    	<?= Html::a('<span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>', ['product/delete/'. $product->slug], ['class' => 'btn', 'onclick' => "return confirm('Are you sure you want to delete this?');"]) ?>
 			    </td>
 		  	</tr>
 		<?php endforeach; ?>

@@ -109,9 +109,6 @@ body {
 
 .featured-product-item > a {
 	display: block;
-	height: 320px;
-	background-color: #f1f5f8;
-	border: 1px solid #ddd;
 }
 
 .promotion-item > a {
@@ -196,6 +193,10 @@ body {
 	padding: 15px 15px;
 }
 
+#main-content {
+	border-top: 1px solid #eee;
+}
+
 .shop-banner {
 	display: block;
 	overflow: hidden;
@@ -205,6 +206,7 @@ body {
 	display: block;
 	background-color: #f1f5f8;
 	margin-bottom: 20px;
+	border: 1px solid #eee;
 }
 
 .shop-header {
@@ -244,9 +246,28 @@ body {
 	margin-top: 20px;
 }
 
+.margin-bottom {
+	margin-bottom: 20px;
+}
+
 .panel {
 	border-radius: 0;
 	border-color: #eee;
+}
+
+.alert {
+	border-radius: 0;
+	border-right: 0;
+	border-left: 0;
+}
+
+.alert-dash {
+	border: 2px dashed #bce8f1;
+	background-color: #d9edf7;
+}
+
+.alert-no-margin {
+	margin-bottom: 0;
 }
 
 fieldset {

@@ -7,7 +7,7 @@ use kartik\widgets\Alert;
 <?php $this->beginContent('@app/views/layouts/main.php'); ?>
 	<?php if (Yii::$app->session->hasFlash('success')): ?>
 		<?= Alert::widget([
-		   'options' => ['class' => 'alert-success'],
+		   'options' => ['class' => 'alert-success alert-no-margin'],
 		   'body' => Yii::$app->session->getFlash('success'),
 		]); ?>
 	<?php endif; ?>

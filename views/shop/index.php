@@ -10,13 +10,18 @@ $this->title = Yii::$app->name . ' - Shop';
 	<div class="col-md-11">
 		
 		<?php if(!$model): ?>
-			<div class="alert alert-info" role="alert"><?= Yii::t('app', 'You dont have a shop yet.') ?></div>
-			<?= Html::a(Yii::t('app', 'Create Now'), ['shop/create'], ['class' => 'btn btn-success']) ?>
+			<div class="alert alert-dash margin-top margin-bottom" role="alert">
+				<?= Yii::t('app', 'You dont have a shop yet.') ?><br>
+				<?= Html::a(Yii::t('app', 'Create Now'), ['shop/create'], ['class' => 'btn btn-info margin-top']) ?>
+			</div>
+			
 		<?php else: ?>
 			<div class="shop-detail">
 				<div class="shop-header">
 					<div class="shop-banner">
-						<?= Html::img($model->getBanner(), ['class' => 'img-responsive']) ?>
+						<?php if($model->banner): ?>
+							<?= Html::img($model->getBanner(), ['class' => 'img-responsive']) ?>
+						<?php endif; ?>
 					</div>
 					<h4 class="shop-title text-muted"><?= Html::img($model->user->profile->getAvatar(), ['class' => 'img-circle', 'style' => 'width:32px; margin-right: 10px']) ?><?= Html::encode($model->name) ?></h4>
 					<h5 class="shop-tagline"></h5>
