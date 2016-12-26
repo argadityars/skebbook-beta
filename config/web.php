@@ -7,7 +7,10 @@ $config = [
     'id' => 'basic',
     'name' => 'Skebbook',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => [
+        'log',
+        'app\components\Bootstrap',
+    ],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -69,6 +72,21 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'product/update/<slug>' => 'product/update',
+                'product/view/<slug>' => 'product/view',
+                'product/delete/<slug>' => 'product/delete',
+            ],
+        ],
+        'formatter' => [
+            'decimalSeparator' => ',',
+            'thousandSeparator' => '.',
+            'currencyCode' => '',
+        ],
+        'elasticsearch' => [
+            'class' => 'yii\elasticsearch\Connection',
+            'nodes' => [
+                ['http_address' => '127.0.0.1:8080'],
+                // configure more hosts if you have a cluster
             ],
         ],
     ],

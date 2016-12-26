@@ -71,7 +71,7 @@ class Profile extends BaseProfile
     {
     	$avatar = $this->avatarImage;
     	if ($this->validate()) {
-            $avatar->saveAs('uploads/image/avatar/' . date('Ydm') . md5(Yii::$app->user->identity->getId()) . '.' . $avatar->extension);
+            $avatar->saveAs(Yii::$app->params['uploadPath']['avatar'] . date('Ydm') . md5(Yii::$app->user->identity->getId()) . '.' . $avatar->extension);
             return true;
         } else {
             return false;
@@ -105,7 +105,16 @@ class Profile extends BaseProfile
         if ($this->avatar == null) {
             $avatar = 'default.png';
         }
-        return '/uploads/image/avatar/' . $avatar ;
+        return Yii::$app->params['uploadUrl']['avatar'] . $avatar ;
+    }
+
+    public function getDateOfBirth()
+    {
+        $date = $this->date;
+        $month = $this->month;
+        $year = $this->year;
+
+        return $year.'-'.$month.'-'.$date;
     }
 
     /**

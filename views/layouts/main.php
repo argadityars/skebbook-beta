@@ -25,58 +25,14 @@ AppAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 
-<div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-default navbar-fixed-top',
-        ],
-    ]);
-    $navItems=[
-        ['label' => 'Home', 'url' => ['/site/index']],
-      ];
-      if (Yii::$app->user->isGuest) {
-        array_push($navItems,
-            ['label' => 'Login', 'url' => ['/user/login']],
-            ['label' => 'Register', 'url' => ['/user/register']]);
-      } else {
-        array_push($navItems,[
-            'label' => Yii::$app->user->identity->username,
-                'items' => [
-                    ['label' => 'Setting', 'url' => ['/user/settings/profile']],
-                    '<li class="divider"></li>',
-                    ['label' => 'Logout', 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']]
-                ]
-        ]);
-      }
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $navItems,
-    ]);
+<?= $this->render('_navbar') ?>
 
-    NavBar::end();
-    ?>
+<?= $content ?>
 
-    <div class="container">
-
-        <?php if(Yii::$app->user->isGuest): ?>
-            <?= $content ?>
-        <?php else: ?>
-        <div class="row">
-            <div class="col-md-3"><?= $this->render('_sidebar') ?></div>
-            <div class="col-md-9"><?= $content ?></div> 
-        </div>
-        <?php endif; ?>
-
-    </div>
-</div>
-
-<footer class="footer">
-    <div class="container">
-        <p class="text-center">&copy; Skebbook <?= date('Y') ?></p>
-    </div>
+<footer id="footer" class="footer">
+    <section id="contact"></section>
+    <section id="footer-content"></section>
+    <section id="footer-copyright"><center>&copy; Skebbook <?= date('Y') ?></center></section>
 </footer>
 
 <?php $this->endBody() ?>

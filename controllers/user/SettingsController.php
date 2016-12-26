@@ -5,6 +5,7 @@ namespace app\controllers\user;
 use Yii;
 use app\models\Profile;
 use dektrium\user\controllers\SettingsController as BaseSettings;
+use yii\filters\AccessControl;
 use yii\web\UploadedFile;
 
 /**
@@ -12,9 +13,44 @@ use yii\web\UploadedFile;
 */
 class SettingsController extends BaseSettings
 {
+	/** @inheritdoc */
+    public $defaultAction = 'index';
+
+	public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow'   => true,
+                        'actions' => ['index', 'profile', 'account', 'networks', 'disconnect', 'delete'],
+                        'roles'   => ['@'],
+                    ],
+                    [
+                        'allow'   => true,
+                        'actions' => ['confirm'],
+                        'roles'   => ['?', '@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
+	public function actionIndex()
+	{
+		$this->layout = "@app/views/layouts/2column";
+
+		$model = $this->finder->findProfileById(Yii::$app->user->identity->getId());
+
+		return $this->render('index', [
+			'model' => $model,
+		]);
+	}
 	
 	public function actionProfile()
 	{
+		$this->layout = "@app/views/layouts/2column";
 		$model = $this->finder->findProfileById(Yii::$app->user->identity->getId());
 		$oldAvatar = $model->avatar;
 		$this->performAjaxValidation($model);
@@ -43,5 +79,7 @@ class SettingsController extends BaseSettings
             'model' => $model
         ]);
 	}
+
+	
 
 }

@@ -19,17 +19,15 @@ use kartik\widgets\ActiveForm;
  */
 $user = Yii::$app->user->identity;
 $this->title = Yii::t('user', 'Profile settings');
-$this->params['breadcrumbs'][] = $this->title;
 
 ?>
 
 <?= $this->render('/_alert', ['module' => Yii::$app->getModule('user')]) ?>
-
-<?= $this->render('_menu') ?>
-<div class="panel panel-default">
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-md-6">
+<div class="row margin-top">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-body">
+        
                 <?php $form = ActiveForm::begin([
                     'id' => 'profile-form',
                     'enableAjaxValidation'   => true,
@@ -59,7 +57,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="col-md-4"><?= $form->field($model, 'year')->dropdownList($model->getYearsArray()) ?></div>
                 </div>
 
+                
+            </div>
+            <div class="panel-footer">
                 <?= Html::submitButton(Yii::t('user', 'Update Profile'), ['class' => 'btn btn-success']) ?>
+                <?= Html::a(Yii::t('app', 'Cancel'), ['settings/'], ['class' => 'btn btn-default']) ?>
                     
                 <?php ActiveForm::end(); ?>
             </div>

@@ -24,12 +24,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?= $this->render('/_alert', ['module' => Yii::$app->getModule('user')]) ?>
 
-
-<?= $this->render('_menu') ?>
-<div class="panel panel-default">
-    <div class="panel-body">
-        <div class="row">
-            <div class="col-md-6">
+<div class="row margin-top">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-body">
+        
                 <?php $form = ActiveForm::begin([
                     'id'                     => 'account-form',
                     'enableAjaxValidation'   => true,
@@ -47,7 +46,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'current_password')->passwordInput() ?>
 
-                <?= Html::submitButton(Yii::t('user', 'Update Account'), ['class' => 'btn btn-success']) ?>        
+                
+            </div>
+            <div class="panel-footer">
+                <?= Html::submitButton(Yii::t('user', 'Update Account'), ['class' => 'btn btn-success']) ?>   
+                <?= Html::a(Yii::t('app', 'Cancel'), ['settings/'], ['class' => 'btn btn-default']) ?>     
 
                 <?php ActiveForm::end(); ?>
             </div>

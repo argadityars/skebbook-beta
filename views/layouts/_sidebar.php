@@ -6,19 +6,14 @@ use yii\widgets\Menu;
 $user = Yii::$app->user->identity;
 ?>
 
-<div class="panel panel-default">
-    <!-- Default panel contents -->
-    <div class="panel-heading"><?= Html::encode($user->profile->name) ?></div>
-
-    <!-- List group -->
-    <ul class="list-group">
-        <?= Html::a('Dashboard', 
-            ['/site/index'], 
-            ['class' => 'list-group-item']
-        ) ?>
-        <?= Html::a('Profile', 
-            ['/user/settings/profile'], 
-            ['class' => 'list-group-item']
-        ) ?>
-    </ul>
-</div>
+<ul class="sidebar-list">
+	<li>
+		<?= Html::a('<span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Profile', ['/user/settings'], ['class' => 'link-block active']) ?>
+	</li>
+	<li>
+		<?= Html::a('<span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Dashboard', ['#'], ['class' => 'link-block',]) ?>
+	</li>
+	<li>
+		<?= Html::a('<span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Shop', ['/shop'], ['class' => 'link-block']) ?>
+	</li>
+</ul>
