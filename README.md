@@ -9,4 +9,7 @@ This is a development version for Skebbok new application.
 
 ### Known Issues
 1. Cant update product image
-2. Search with filter doesnt work
+
+### WIP
+1. Search with filter 
+2. Add field for location
